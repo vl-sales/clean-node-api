@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+npx husky add .husky/commit-msg ".git/hooks/commit-msg \$1".git/hooks/commit-msg $1
