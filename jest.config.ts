@@ -9,7 +9,8 @@ const config: Config = {
     '.+\\ts$': 'ts-jest'
   },
   coverageProvider: 'v8',
-  roots: ['<rootDir>/src']
+  roots: ['<rootDir>/src'],
+  preset: 'ts-jest'
 }
 
 export default config
