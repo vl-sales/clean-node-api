@@ -6,11 +6,11 @@ const config: Config = {
   collectCoverage: true,
   coverageDirectory: 'coverage',
   transform: {
-    '.+\\ts$': 'ts-jest'
+    '.+\\.ts$': 'ts-jest'
   },
   coverageProvider: 'v8',
   roots: ['<rootDir>/src'],
-  preset: 'ts-jest'
+  preset: '@shelf/jest-mongodb'
 }
 
 export default config
