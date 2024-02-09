@@ -10,7 +10,8 @@ const config: Config = {
     '!<rootDir>/src/data/usecases/add-account/db-add-account-protocols.ts',
     '!<rootDir>/src/domain/models/**',
     '!<rootDir>/src/domain/useCases/**',
-    '!<rootDir>/src/presentation/controllers/signUp/signup-protocols.ts'
+    '!<rootDir>/src/presentation/controllers/signUp/signup-protocols.ts',
+    '!<rootDir>/src/presentation/controllers/login/login-protocols.ts'
   ],
   collectCoverage: true,
   coverageDirectory: 'coverage',
