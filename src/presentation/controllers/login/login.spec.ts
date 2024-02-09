@@ -60,7 +60,6 @@ describe('Login Controller', () => {
     }
 
     const httpResponse = await sut.handle(httpRequest)
-
     expect(httpResponse).toEqual(badRequest(new MissingParamError('email')))
   })
 
@@ -74,7 +73,6 @@ describe('Login Controller', () => {
     }
 
     const httpResponse = await sut.handle(httpRequest)
-
     expect(httpResponse).toEqual(badRequest(new MissingParamError('password')))
   })
 
@@ -84,7 +82,6 @@ describe('Login Controller', () => {
     jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(false)
 
     const httpResponse = await sut.handle(makeFakeHttpRequest())
-
     expect(httpResponse).toEqual(badRequest(new InvalidParamError('email')))
   })
 
@@ -94,7 +91,6 @@ describe('Login Controller', () => {
     const isValidSpy = jest.spyOn(emailValidatorStub, 'isValid')
 
     await sut.handle(makeFakeHttpRequest())
-
     expect(isValidSpy).toHaveBeenCalledWith('any_email@mail.com')
   })
 
@@ -106,7 +102,6 @@ describe('Login Controller', () => {
     })
 
     const httpResponse = await sut.handle(makeFakeHttpRequest())
-
     expect(httpResponse).toEqual(serverError(new Error('unit test')))
   })
 
@@ -116,7 +111,6 @@ describe('Login Controller', () => {
     const authSpy = jest.spyOn(authenticationStub, 'auth')
 
     await sut.handle(makeFakeHttpRequest())
-
     expect(authSpy).toHaveBeenCalledWith('any_email@mail.com', 'any_password')
   })
 
@@ -126,7 +120,17 @@ describe('Login Controller', () => {
     jest.spyOn(authenticationStub, 'auth').mockReturnValue(null)
 
     const httpResponse = await sut.handle(makeFakeHttpRequest())
-
     expect(httpResponse).toEqual(unauthorized())
+  })
+
+  test('Should return 500 if Authentication throws', async () => {
+    const { sut, authenticationStub } = makeSut()
+
+    jest.spyOn(authenticationStub, 'auth').mockImplementationOnce(() => {
+      throw new Error('unit test')
+    })
+
+    const httpResponse = await sut.handle(makeFakeHttpRequest())
+    expect(httpResponse).toEqual(serverError(new Error('unit test')))
   })
 })
