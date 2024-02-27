@@ -1,7 +1,7 @@
 {
     "env": {
-        "es2021": true,
-        "node": true
+      "es2021": true,
+      "node": true
     },
     "extends": "standard-with-typescript",
     "parserOptions": {
@@ -16,6 +16,7 @@
       "@typescript-eslint/no-unsafe-argument": 0,
       "array-callback-return": 0,
       "@typescript-eslint/no-unused-expressions": 0,
-      "@typescript-eslint/no-misused-promises": 0
+      "@typescript-eslint/no-misused-promises": 0,
+      "@typescript-eslint/unbound-method": 0
     }
 }
