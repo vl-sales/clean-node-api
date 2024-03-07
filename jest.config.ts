@@ -12,7 +12,9 @@ const config: Config = {
     '!<rootDir>/src/domain/useCases/**',
     '!<rootDir>/src/presentation/controllers/signUp/signup-protocols.ts',
     '!<rootDir>/src/presentation/controllers/login/login-protocols.ts',
-    '!<rootDir>/src/presentation/helpers/validators/validation.ts'
+    '!<rootDir>/src/presentation/helpers/validators/validation.ts',
+    '!<rootDir>/src/data/protocols/**',
+    '!<rootDir>/src/data/usecases/authentication/db-authentication-protocols.ts'
   ],
   collectCoverage: true,
   coverageDirectory: 'coverage',
