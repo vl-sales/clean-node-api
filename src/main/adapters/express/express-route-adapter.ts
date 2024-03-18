@@ -1,5 +1,5 @@
 import { type Request, type Response } from 'express'
-import { type HttpRequest, type Controller } from '../../presentation/protocols'
+import { type HttpRequest, type Controller } from '../../../presentation/protocols'
 import { type RouteReturn } from './types/adaptRouteReturn'
 
 export const adaptRoute = (controller: Controller): RouteReturn => {
