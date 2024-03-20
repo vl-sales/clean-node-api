@@ -4,7 +4,13 @@
     "module": "CommonJS",
     "target": "ES6",
     "esModuleInterop": true,
-    "allowJs": true,
-    "strictNullChecks": false
-  }
+    "strictNullChecks": false,
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
 }
