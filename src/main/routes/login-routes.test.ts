@@ -16,15 +16,17 @@ describe('SignUp routes', () => {
     await MongoHelper.disconnect()
   })
 
-  test('Should return an account on success', async () => {
-    await request(app)
-      .post('/api/signup')
-      .send({
-        name: 'Vinicius',
-        email: 'lande0600@gmail.com',
-        password: '123',
-        passwordConfirmation: '123'
-      })
-      .expect(200)
+  describe('POST /signup', () => {
+    test('Should return 200 on success', async () => {
+      await request(app)
+        .post('/api/signup')
+        .send({
+          name: 'Vinicius',
+          email: 'lande0600@gmail.com',
+          password: '123',
+          passwordConfirmation: '123'
+        })
+        .expect(200)
+    })
   })
 })
