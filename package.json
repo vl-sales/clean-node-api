@@ -12,8 +12,7 @@
     "test:unit": "npm test -- --watch 'src/**/*.spec.ts'",
     "test:integration": "npm test -- --watch 'src/**/*.test.ts'",
     "test:staged": "jest --passWithNoTests --findRelatedTests",
-    "test:ci": "npm test -- --coverage",
-    "prepare": "husky install"
+    "test:ci": "npm test -- --coverage"
   },
   "keywords": [],
   "author": "",
