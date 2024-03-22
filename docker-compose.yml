@@ -1,0 +1,28 @@
+vercion: "3"
+#services contem as imagens
+services:
+  mongo:
+    container_name: mongo-container
+    image: mongo:7
+    restart: always
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
+  api:
+    container_name: api-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: clean-node-api
+    ports:
+      - "5050:5050"
+    restart: always
+    command: npm start
+    volumes:
+      - ./dist:/app/dist
+    links:
+      - mongo
+    depends_on:
+      - mongo #nome do serviço
+
