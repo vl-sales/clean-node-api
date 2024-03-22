@@ -1,4 +1,4 @@
-vercion: "3"
+version: "3"
 #services contem as imagens
 services:
   mongo:
@@ -23,6 +23,4 @@ services:
       - ./dist:/app/dist
     links:
       - mongo
-    depends_on:
-      - mongo #nome do serviço
 
