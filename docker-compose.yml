@@ -11,16 +11,16 @@ services:
       - "27017:27017"
   api:
     container_name: api-container
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: clean-node-api
+    working_dir: /app
+    image: node:20
     ports:
       - "5050:5050"
+      - "9222:9222"
     restart: always
-    command: npm start
+    command: bash -c "npm install --omit=dev && npm run debug"
     volumes:
-      - ./dist:/app/dist
+      - ./dist/:/app/dist/
+      - ./package.json:/app/package.json
     links:
       - mongo
 
