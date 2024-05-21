@@ -5,10 +5,14 @@
     },
     "extends": "standard-with-typescript",
     "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module",
-        "project": "./tsconfig.eslint.json"
+      "ecmaVersion": "latest",
+      "sourceType": "module",
+      "project": "./tsconfig.eslint.json"
     },
+    "ignorePatterns": [
+      "/*",
+      "!src/"
+    ],
     "rules": {
       "indent": [ "error", 2 ],
       "@typescript-eslint/strict-boolean-expressions": 0,
