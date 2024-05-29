@@ -132,4 +132,15 @@ describe('SingUp Controller', () => {
     await sut.handle(makeFakeRequest())
     expect(authSpy).toHaveBeenCalledWith({ email: body.email, password: body.password })
   })
+
+  test('Should return 500 if Authentication throws', async () => {
+    const { sut, authenticationStub } = makeSut()
+
+    jest.spyOn(authenticationStub, 'auth').mockImplementationOnce(() => {
+      throw new Error('unit test')
+    })
+
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(serverError(new Error('unit test')))
+  })
 })
