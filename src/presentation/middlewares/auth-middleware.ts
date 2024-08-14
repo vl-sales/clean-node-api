@@ -1,7 +1,7 @@
 import { type LoadAccountByToken } from '../../domain/useCases/load-account-by-token'
+import { type HttpRequest, type HttpResponse, type Middleware } from '../protocols'
 import { AccessDeniedError } from '../errors'
 import { forbidden, ok, serverError } from '../helpers/http/https-helper'
-import { type HttpRequest, type HttpResponse, type Middleware } from '../protocols'
 
 export class AuthMiddleware implements Middleware {
   constructor (
