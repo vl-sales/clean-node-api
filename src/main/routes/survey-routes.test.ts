@@ -41,9 +41,7 @@ describe('SignUp routes', () => {
         })
         .expect(403)
     })
-  })
 
-  describe('POST /survey', () => {
     test('Should return 204 on add survey with valid accessToken', async () => {
       const result = await accountCollection.insertOne({
         name: 'Vinicius',
