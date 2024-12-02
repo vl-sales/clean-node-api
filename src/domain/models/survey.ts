@@ -1,5 +1,5 @@
 export interface SurveyModel {
-  id: string
+  id?: string
   question: string
   answers: SurveyAnswers[]
   date: Date

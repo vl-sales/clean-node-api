@@ -24,5 +24,9 @@ export const MongoHelper = {
   map<T>(dbReturn: T & DefaultFields): Omit<T & DefaultFields, '_id'> {
     const { _id, ...obj } = dbReturn
     return Object.assign({}, obj, { id: _id })
+  },
+
+  mapMany<T>(dbReturn: Array<T & DefaultFields>): Array<Omit<T & DefaultFields, '_id'>> {
+    return dbReturn.map((record) => this.map(record))
   }
 }
