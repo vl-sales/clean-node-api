@@ -71,4 +71,12 @@ describe('SignUp routes', () => {
         .expect(403)
     })
   })
+
+  describe('GET /survey', () => {
+    test('Should return 403 if no access token is provided', async () => {
+      await request(app)
+        .get('/api/surveys')
+        .expect(403)
+    })
+  })
 })
