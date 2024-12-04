@@ -4,6 +4,22 @@ import { type Collection } from 'mongodb'
 import { MongoHelper } from '../../infra/db/mongodb/helpers/mongo-helper'
 import { sign } from 'jsonwebtoken'
 import env from '../config/env'
+import { type AddSurveyModel } from '../../domain/useCases/add-survey'
+
+const makeFakeSurveys = (): AddSurveyModel[] => {
+  return [
+    {
+      question: 'Any_question',
+      answers: [{ image: 'any_image', answer: 'any_answer' }],
+      date: new Date()
+    },
+    {
+      question: 'other_question',
+      answers: [{ image: 'other_image', answer: 'other_answer' }],
+      date: new Date()
+    }
+  ]
+}
 
 let surveyCollection: Collection
 let accountCollection: Collection
@@ -55,7 +71,7 @@ describe('SignUp routes', () => {
 
       await request(app)
         .post('/api/surveys')
-        .set('x-accesss-token', accessToken)
+        .set('x-access-token', accessToken)
         .send({
           question: 'Question',
           answers: [
@@ -68,7 +84,7 @@ describe('SignUp routes', () => {
             }
           ]
         })
-        .expect(403)
+        .expect(204)
     })
   })
 
@@ -77,6 +93,23 @@ describe('SignUp routes', () => {
       await request(app)
         .get('/api/surveys')
         .expect(403)
+    })
+
+    test('Should return 200 on load surveys with valid accessToken', async () => {
+      await surveyCollection.insertMany(makeFakeSurveys())
+      const result = await accountCollection.insertOne({
+        name: 'Vinicius',
+        email: 'lande0600@gmail.com',
+        password: '123'
+      })
+      const id = result.insertedId
+      const accessToken = sign({ id }, env.jwtSecret)
+      await accountCollection.updateOne({ _id: id }, { $set: { accessToken } })
+
+      await request(app)
+        .get('/api/surveys')
+        .set('x-access-token', accessToken)
+        .expect(200)
     })
   })
 })
