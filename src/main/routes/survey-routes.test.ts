@@ -23,6 +23,21 @@ const makeFakeSurveys = (): AddSurveyModel[] => {
 
 let surveyCollection: Collection
 let accountCollection: Collection
+
+const makeAccessToken = async (role?: string): Promise<string> => {
+  await surveyCollection.insertMany(makeFakeSurveys())
+  const result = await accountCollection.insertOne({
+    name: 'Vinicius',
+    email: 'lande0600@gmail.com',
+    password: '123',
+    role
+  })
+  const id = result.insertedId
+  const accessToken = sign({ id }, env.jwtSecret)
+  await accountCollection.updateOne({ _id: id }, { $set: { accessToken } })
+  return accessToken
+}
+
 describe('SignUp routes', () => {
   beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL)
@@ -59,16 +74,7 @@ describe('SignUp routes', () => {
     })
 
     test('Should return 204 on add survey with valid accessToken', async () => {
-      const result = await accountCollection.insertOne({
-        name: 'Vinicius',
-        email: 'lande0600@gmail.com',
-        password: '123',
-        role: 'admin'
-      })
-      const id = result.insertedId
-      const accessToken = sign({ id }, env.jwtSecret)
-      await accountCollection.updateOne({ _id: id }, { $set: { accessToken } })
-
+      const accessToken = await makeAccessToken('admin')
       await request(app)
         .post('/api/surveys')
         .set('x-access-token', accessToken)
@@ -96,16 +102,7 @@ describe('SignUp routes', () => {
     })
 
     test('Should return 200 on load surveys with valid accessToken', async () => {
-      await surveyCollection.insertMany(makeFakeSurveys())
-      const result = await accountCollection.insertOne({
-        name: 'Vinicius',
-        email: 'lande0600@gmail.com',
-        password: '123'
-      })
-      const id = result.insertedId
-      const accessToken = sign({ id }, env.jwtSecret)
-      await accountCollection.updateOne({ _id: id }, { $set: { accessToken } })
-
+      const accessToken = await makeAccessToken()
       await request(app)
         .get('/api/surveys')
         .set('x-access-token', accessToken)
