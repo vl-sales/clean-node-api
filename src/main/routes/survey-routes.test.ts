@@ -73,6 +73,26 @@ describe('SignUp routes', () => {
         .expect(403)
     })
 
+    test('Should return 403 if a common user is trying to access a admin route', async () => {
+      const accessToken = await makeAccessToken()
+      await request(app)
+        .post('/api/surveys')
+        .set('x-access-token', accessToken)
+        .send({
+          question: 'Question',
+          answers: [
+            {
+              image: 'Answer 1',
+              answer: 'http://image-name.com'
+            },
+            {
+              answer: 'Anwer 2'
+            }
+          ]
+        })
+        .expect(403)
+    })
+
     test('Should return 204 on add survey with valid accessToken', async () => {
       const accessToken = await makeAccessToken('admin')
       await request(app)
