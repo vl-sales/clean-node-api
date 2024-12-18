@@ -5,7 +5,7 @@
     "target": "ES6",
     "esModuleInterop": true,
     "strictNullChecks": false,
-    "sourceMap": false,
+    "sourceMap": true,
     "rootDir": "src"
   },
   "include": [
