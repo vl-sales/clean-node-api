@@ -18,6 +18,8 @@ services:
       - "9222:9222"
     restart: always
     command: bash -c "npm install --omit=dev && npm run debug"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/clean-api
     volumes:
       - ./dist/:/app/dist/
       - ./package.json:/app/package.json
